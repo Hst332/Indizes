@@ -1,8 +1,8 @@
-name: Daily Index Forecast
+name: Daily Index Forecast Engine
 
 on:
   schedule:
-    # Börsentage: Montag–Freitag um 05:00 UTC
+    # Runs every weekday at 05:00 UTC (before EU markets)
     - cron: '0 5 * * 1-5'
   workflow_dispatch:
 
@@ -22,16 +22,16 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r requirements.txt || pip install -r src/requirements.txt
 
-      - name: Run index forecast
+      - name: Run index forecasts
         run: |
           python src/main.py
 
       - name: Commit forecast results
         run: |
           git config --global user.name "index-forecast-bot"
-          git config --global user.email "forecast-bot@users.noreply.github.com"
+          git config --global user.email "bot@index-forecast.ai"
           git add forecasts/
-          git commit -m "Daily index forecast update" || echo "No changes to commit"
+          git commit -m "Daily index forecast" || echo "No changes to commit"
           git push
