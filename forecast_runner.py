@@ -1,5 +1,5 @@
 from assets.asset_config import ASSETS
-from forecast.forecast_asset import forecast_asset
+from forecast_asset import forecast_asset
 
 def run_all_forecasts():
     results = []
