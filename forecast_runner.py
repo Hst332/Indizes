@@ -4,7 +4,7 @@ from forecast_asset import forecast_asset
 def run_all_forecasts():
     results = []
 
-    for asset, cfg in ASSETS.items():
+    for asset, cfg in ASSET.items():
         try:
             result = forecast_asset(asset, cfg)
             results.append(result)
