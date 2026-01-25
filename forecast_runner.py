@@ -1,4 +1,4 @@
-from assets_config import ASSETS
+from asset_config import ASSETS
 from forecast_asset import forecast_asset
 
 def run_all_forecasts():
