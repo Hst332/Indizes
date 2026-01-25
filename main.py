@@ -1,4 +1,4 @@
-from forecast.forecast_runner import run_all_forecasts
+from forecast_runner import run_all_forecasts
 from output.forecast_writer import write_forecasts
 
 def main():
