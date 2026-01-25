@@ -1,4 +1,4 @@
-from core.data_loader import load_market_data
+from data_loader import load_market_data
 from core.model_core import run_model
 from core.decision_engine import generate_signal
 from core.regime_adjustment import adjust_for_regime
