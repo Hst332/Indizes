@@ -1,5 +1,5 @@
 from forecast_runner import run_all_forecasts
-from output.forecast_writer import write_forecasts
+from forecast_writer import write_forecasts
 
 def main():
     forecasts = run_all_forecasts()
