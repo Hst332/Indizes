@@ -1,42 +1,47 @@
-from pathlib import Path
-from datetime import date
+from datetime import datetime, timezone
 import json
+from pathlib import Path
 
 def write_forecasts(forecasts):
-    print(">>> TXT WRITER IS RUNNING <<<")
+    now = datetime.now(timezone.utc)
+    timestamp = now.strftime("%Y-%m-%d %H:%M UTC")
 
-    today = date.today().isoformat()
+    # Root-Verzeichnis
+    root = Path(".")
+    txt_file = root / "index_forecast.txt"
 
-    base = Path("forecasts")
-    daily = base / "daily"
-    history = base / "history"
-    txt = base / "txt"
+    forecasts_dir = root / "forecasts"
+    daily = forecasts_dir / "daily"
+    history = forecasts_dir / "history"
 
     daily.mkdir(parents=True, exist_ok=True)
     history.mkdir(parents=True, exist_ok=True)
-    txt.mkdir(parents=True, exist_ok=True)
 
-    with open(daily / f"{today}.json", "w") as f:
+    # Daily JSON
+    with open(daily / f"{now.date().isoformat()}.json", "w") as f:
         json.dump(forecasts, f, indent=2)
 
-    hist_file = history / "all_forecasts.json"
+    # History JSON
+    history_file = history / "all_forecasts.json"
     history_data = []
 
-    if hist_file.exists():
-        with open(hist_file) as f:
+    if history_file.exists():
+        with open(history_file) as f:
             history_data = json.load(f)
 
     history_data.append({
-        "date": today,
+        "timestamp": timestamp,
         "forecasts": forecasts
     })
 
-    with open(hist_file, "w") as f:
+    with open(history_file, "w") as f:
         json.dump(history_data, f, indent=2)
 
-    with open(txt / f"{today}.txt", "w") as f:
-        f.write(f"Index Forecasts – {today}\n")
-        f.write("=" * 40 + "\n\n")
+    # 🔥 EINZIGE TXT-DATEI (überschreiben!)
+    with open(txt_file, "w") as f:
+        f.write(f"Index Forecasts – {timestamp}\n")
+        f.write("=" * 45 + "\n\n")
+
         for item in forecasts:
             f.write(
                 f"{item['asset']}: "
