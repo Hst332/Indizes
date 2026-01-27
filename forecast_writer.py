@@ -1,22 +1,44 @@
-import json
-from datetime import date
 from pathlib import Path
+from datetime import date
+import json
 
 def write_forecasts(forecasts):
     today = date.today().isoformat()
 
-    daily_path = Path(f"forecasts/daily/{today}.json")
-    history_path = Path("forecasts/history/all_forecasts.json")
+    base = Path("forecasts")
+    daily = base / "daily"
+    history = base / "history"
+    txt = base / "txt"
 
-    daily_path.parent.mkdir(parents=True, exist_ok=True)
-    history_path.parent.mkdir(parents=True, exist_ok=True)
+    daily.mkdir(parents=True, exist_ok=True)
+    history.mkdir(parents=True, exist_ok=True)
+    txt.mkdir(parents=True, exist_ok=True)
 
-    daily_path.write_text(json.dumps(forecasts, indent=2))
+    # JSON daily
+    with open(daily / f"{today}.json", "w") as f:
+        json.dump(forecasts, f, indent=2)
 
-    if history_path.exists():
-        history = json.loads(history_path.read_text())
+    # JSON history
+    hist_file = history / "all_forecasts.json"
+    if hist_file.exists():
+        with open(hist_file) as f:
+            history_data = json.load(f)
     else:
-        history = []
+        history_data = []
 
-    history.append({"date": today, "forecasts": forecasts})
-    history_path.write_text(json.dumps(history, indent=2))
+    history_data.append({"date": today, "forecasts": forecasts})
+
+    with open(hist_file, "w") as f:
+        json.dump(history_data, f, indent=2)
+
+    # TXT summary ⭐
+    with open(txt / f"{today}.txt", "w") as f:
+        f.write(f"Index Forecasts – {today}\n")
+        f.write("=" * 40 + "\n\n")
+        for item in forecasts:
+            f.write(
+                f"{item['asset']}: "
+                f"{item['signal']} "
+                f"(Confidence: {item['confidence']:.2f}, "
+                f"Regime: {item['regime']})\n"
+            )
