@@ -15,7 +15,7 @@ def write_forecasts(forecasts):
     txt.mkdir(parents=True, exist_ok=True)
 
     # JSON daily
-    with open(daily / f"{today}.json", "w") as f:
+with open(daily / f"{today}.json", "w") as f:
         json.dump(forecasts, f, indent=2)
 
     # JSON history
@@ -32,7 +32,7 @@ def write_forecasts(forecasts):
         json.dump(history_data, f, indent=2)
 
     # TXT summary ⭐
-    with open(txt / f"{today}.txt", "w") as f:
+with open(txt / f"{today}.txt", "w") as f:
         f.write(f"Index Forecasts – {today}\n")
         f.write("=" * 40 + "\n\n")
         for item in forecasts:
