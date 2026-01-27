@@ -1,3 +1,5 @@
+print("### FORECAST_WRITER v2 WITH TIMESTAMP ###")
+
 from datetime import datetime, timezone
 import json
 from pathlib import Path
