@@ -22,8 +22,8 @@
     "signal": "HOLD",
     "confidence": 0.0,
     "regime": "neutral",
-    "close": 48903.83,
-    "daily_return": -0.2,
+    "close": 48975.79,
+    "daily_return": -0.06,
     "score": 0.0
   },
   {
@@ -31,8 +31,8 @@
     "signal": "HOLD",
     "confidence": 0.0,
     "regime": "neutral",
-    "close": 23825.43,
-    "daily_return": 0.03,
+    "close": 23860.58,
+    "daily_return": 0.18,
     "score": 0.0
   },
   {
@@ -40,8 +40,8 @@
     "signal": "HOLD",
     "confidence": 0.0,
     "regime": "neutral",
-    "close": 6964.77,
-    "daily_return": -0.2,
+    "close": 6974.8,
+    "daily_return": -0.05,
     "score": 0.0
   },
   {
