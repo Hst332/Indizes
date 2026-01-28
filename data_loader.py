@@ -1,39 +1,42 @@
-# data_loader.py
-
 import yfinance as yf
 import pandas as pd
 
 
-def load_market_data(symbol, period="5y"):
+def load_market_data(symbol, period="6mo"):
     """
-    Lädt historische Marktdaten und gibt sauberen DataFrame zurück.
+    Lädt Marktdaten über yfinance und gibt sauberes DataFrame zurück
     """
-
     print(f"Loading market data for {symbol}")
 
     df = yf.download(
         symbol,
         period=period,
+        interval="1d",
         auto_adjust=True,
         progress=False
     )
 
     if df.empty:
-        raise ValueError(f"No data returned for {symbol}")
+        raise ValueError(f"No data loaded for {symbol}")
 
-    # Spalten vereinheitlichen
+    # Einheitliche Spalten
     df = df.rename(columns={
+        "Close": "close",
         "Open": "open",
         "High": "high",
         "Low": "low",
-        "Close": "close",
         "Volume": "volume"
     })
 
-    # Renditen
+    # Rendite
     df["ret"] = df["close"].pct_change()
 
-    # NaNs entfernen
+    # Aufräumen
     df = df.dropna()
+
+    print(
+        f"{symbol}: rows={len(df)} | "
+        f"last close={df['close'].iloc[-1]:.2f}"
+    )
 
     return df
