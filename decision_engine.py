@@ -13,5 +13,5 @@ def generate_signal(model_output, regime):
 
     return {
         "signal": signal,
-        "confidence": abs(score)
+        "confidence": min(abs(score) * 100, 1.0)
     }
