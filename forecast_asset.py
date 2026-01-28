@@ -4,7 +4,6 @@ from decision_engine import generate_signal
 from regime_adjustment import adjust_for_regime
 
 
-
 def forecast_asset(asset_name, asset_cfg):
     df = load_market_data(asset_cfg["ticker"])
 
@@ -12,9 +11,15 @@ def forecast_asset(asset_name, asset_cfg):
     regime = adjust_for_regime(df)
     decision = generate_signal(model_output, regime)
 
+    latest_close = float(df["close"].iloc[-1])
+    latest_ret = float(df["ret"].iloc[-1])
+
     return {
         "asset": asset_name,
         "signal": decision["signal"],
         "confidence": decision["confidence"],
-        "regime": regime
+        "regime": regime,
+        "close": round(latest_close, 2),
+        "daily_return": round(latest_ret * 100, 2),
+        "score": round(model_output.get("score", 0.0), 4),
     }
