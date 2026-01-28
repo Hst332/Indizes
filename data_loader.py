@@ -34,9 +34,12 @@ def load_market_data(symbol, period="6mo"):
     # Aufräumen
     df = df.dropna()
 
+    last_close = float(df["close"].iloc[-1])
+
     print(
         f"{symbol}: rows={len(df)} | "
-        f"last close={df['close'].iloc[-1]:.2f}"
+        f"last close={last_close:.2f}"
     )
+
 
     return df
