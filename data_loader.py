@@ -1,18 +1,39 @@
 # data_loader.py
-import pandas as pd
-import numpy as np
 
-def load_market_data(symbol):
+import yfinance as yf
+import pandas as pd
+
+
+def load_market_data(symbol, period="5y"):
     """
-    Dummy-Marktdaten (Platzhalter)
+    Lädt historische Marktdaten und gibt sauberen DataFrame zurück.
     """
+
     print(f"Loading market data for {symbol}")
 
-    dates = pd.date_range(end=pd.Timestamp.today(), periods=30)
-    prices = 100 + np.cumsum(np.random.normal(0, 1, size=len(dates)))
+    df = yf.download(
+        symbol,
+        period=period,
+        auto_adjust=True,
+        progress=False
+    )
 
-    df = pd.DataFrame({
-        "close": prices
-    }, index=dates)
+    if df.empty:
+        raise ValueError(f"No data returned for {symbol}")
+
+    # Spalten vereinheitlichen
+    df = df.rename(columns={
+        "Open": "open",
+        "High": "high",
+        "Low": "low",
+        "Close": "close",
+        "Volume": "volume"
+    })
+
+    # Renditen
+    df["ret"] = df["close"].pct_change()
+
+    # NaNs entfernen
+    df = df.dropna()
 
     return df
