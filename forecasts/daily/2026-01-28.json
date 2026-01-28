@@ -1,38 +1,38 @@
 [
   {
     "asset": "DAX",
-    "signal": "SELL",
-    "confidence": 0.005013119886228212,
+    "signal": "HOLD",
+    "confidence": 0.0,
     "regime": "neutral"
   },
   {
     "asset": "ATX",
-    "signal": "SELL",
-    "confidence": 0.005339720177462382,
+    "signal": "HOLD",
+    "confidence": 0.0,
     "regime": "neutral"
   },
   {
     "asset": "DOW",
-    "signal": "BUY",
-    "confidence": 0.00395096176230676,
+    "signal": "HOLD",
+    "confidence": 0.0,
     "regime": "neutral"
   },
   {
     "asset": "NASDAQ",
     "signal": "HOLD",
-    "confidence": 0.0005696976739009818,
+    "confidence": 0.0,
     "regime": "neutral"
   },
   {
     "asset": "SP500",
-    "signal": "BUY",
-    "confidence": 0.003533177227373563,
+    "signal": "HOLD",
+    "confidence": 0.0,
     "regime": "neutral"
   },
   {
     "asset": "NIKKEI",
     "signal": "HOLD",
-    "confidence": 5.1285554028890346e-05,
+    "confidence": 0.0,
     "regime": "neutral"
   }
 ]

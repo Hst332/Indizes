@@ -572,5 +572,46 @@
         "regime": "neutral"
       }
     ]
+  },
+  {
+    "timestamp": "2026-01-28 07:59 UTC",
+    "forecasts": [
+      {
+        "asset": "DAX",
+        "signal": "HOLD",
+        "confidence": 0.0,
+        "regime": "neutral"
+      },
+      {
+        "asset": "ATX",
+        "signal": "HOLD",
+        "confidence": 0.0,
+        "regime": "neutral"
+      },
+      {
+        "asset": "DOW",
+        "signal": "HOLD",
+        "confidence": 0.0,
+        "regime": "neutral"
+      },
+      {
+        "asset": "NASDAQ",
+        "signal": "HOLD",
+        "confidence": 0.0,
+        "regime": "neutral"
+      },
+      {
+        "asset": "SP500",
+        "signal": "HOLD",
+        "confidence": 0.0,
+        "regime": "neutral"
+      },
+      {
+        "asset": "NIKKEI",
+        "signal": "HOLD",
+        "confidence": 0.0,
+        "regime": "neutral"
+      }
+    ]
   }
 ]
