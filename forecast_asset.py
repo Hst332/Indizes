@@ -4,6 +4,7 @@ from decision_engine import generate_signal
 from regime_adjustment import adjust_for_regime
 
 
+
 def forecast_asset(asset_name, asset_cfg):
     df = load_market_data(asset_cfg["ticker"])
 
