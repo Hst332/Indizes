@@ -1,9 +1,9 @@
-Index Forecasts – 2026-01-28 05:35 UTC
+Index Forecasts – 2026-01-28 07:47 UTC
 =============================================
 
-DAX: BUY (Confidence: 0.01, Regime: neutral)
-ATX: HOLD (Confidence: 0.00, Regime: neutral)
-DOW: HOLD (Confidence: 0.00, Regime: neutral)
+DAX: SELL (Confidence: 0.01, Regime: neutral)
+ATX: SELL (Confidence: 0.01, Regime: neutral)
+DOW: BUY (Confidence: 0.00, Regime: neutral)
 NASDAQ: HOLD (Confidence: 0.00, Regime: neutral)
 SP500: BUY (Confidence: 0.00, Regime: neutral)
 NIKKEI: HOLD (Confidence: 0.00, Regime: neutral)
