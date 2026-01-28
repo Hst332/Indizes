@@ -1,20 +1,26 @@
-import json
 import pandas as pd
+from data_loader import load_market_data
+from model_core import run_model
+from decision_engine import generate_signal
 
-with open("forecasts/history/all_forecasts.json") as f:
-    data = json.load(f)
+def run_backtest(symbol):
+    df = load_market_data(symbol)
 
-records = []
+    results = []
+    for i in range(10, len(df)):
+        window = df.iloc[:i]
+        model_output = run_model(window)
+        regime = "neutral"
+        signal = generate_signal(model_output, regime)
 
-for entry in data:
-    date = entry["timestamp"]
-    for fcast in entry["forecasts"]:
-        records.append({
-            "date": date,
-            "asset": fcast["asset"],
-            "signal": fcast["signal"],
-            "confidence": fcast["confidence"]
+        results.append({
+            "date": window.index[-1],
+            "signal": signal["signal"],
+            "confidence": signal["confidence"]
         })
 
-df = pd.DataFrame(records)
-print(df.head())
+    return pd.DataFrame(results)
+
+if __name__ == "__main__":
+    bt = run_backtest("^GDAXI")
+    print(bt.tail())
