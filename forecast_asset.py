@@ -17,6 +17,7 @@ def forecast_asset(asset_name, asset_cfg):
     return {
         "asset": asset_name,
         "signal": decision["signal"],
+        "prev_close": round(prev_close, 2),
         "confidence": decision["confidence"],
         "regime": regime,
         "close": round(latest_close, 2),
