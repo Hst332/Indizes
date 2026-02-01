@@ -42,11 +42,12 @@ def write_forecasts(forecasts):
         f.write("=" * 45 + "\n\n")
         for item in forecasts:
             f.write(
-                f"{item['asset']}  "
-                f"aktueller Wert: {item['close']}  |  "
-                f"Δ {item['daily_return']}%"
-                f"{item['signal']} "
-                f"(Confidence: {item['confidence']:.2f},"
-                f"Regime: {item['regime']})\n"
+                f"{item['asset']:<8} | "
+                f"{item['prev_close']:>18} | "
+                f"{item['close']:>14} | "
+                f"{item['daily_return']:>6}% | "
+                f"{item['signal']:<6} | "
+                f"{item['confidence']:.2f} | "
+                f"{item['regime']}\n"
             )
 
