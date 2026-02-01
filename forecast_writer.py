@@ -44,9 +44,9 @@ def write_forecasts(forecasts):
             f.write(
                 f"{item['asset']}  "
                 f"aktueller Wert: {item['close']}  |  "
+                f"Δ {item['daily_return']}%"
                 f"{item['signal']} "
                 f"(Confidence: {item['confidence']:.2f},"
-                f"Δ {item['daily_return']}%"
                 f"Regime: {item['regime']})\n"
             )
 
