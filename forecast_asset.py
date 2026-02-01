@@ -24,6 +24,6 @@ def forecast_asset(asset_name, asset_cfg):
         "confidence": decision["confidence"],
         "regime": regime,
         "close": round(latest_close, 2),
-        "daily_return": round(latest_ret * 100, 2),
+        "daily_return": round(daily_return * 100, 2),
         "score": round(model_output.get("score", 0.0), 4),
     }
