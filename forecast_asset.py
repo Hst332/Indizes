@@ -12,7 +12,10 @@ def forecast_asset(asset_name, asset_cfg):
     decision = generate_signal(model_output, regime)
 
     latest_close = float(df["close"].iloc[-1])
-    latest_ret = float(df["ret"].iloc[-1])
+    prev_close = float(df["close"].iloc[-2])
+
+    daily_return = (latest_close / prev_close) - 1
+
 
     return {
         "asset": asset_name,
