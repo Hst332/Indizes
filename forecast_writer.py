@@ -40,6 +40,10 @@ def write_forecasts(forecasts):
     with open(txt_file, "w") as f:
         f.write(f"Index Forecasts – {timestamp}\n")
         f.write("=" * 45 + "\n\n")
+        f.write(
+                "Index    | Schlusskurs Vortag | Aktueller Wert | Δ %    | Signal | Conf | Regime\n"
+                "---------+--------------------+----------------+--------+--------+------+---------\n"
+            )
         for item in forecasts:
             f.write(
                 f"{item['asset']:<8} | "
