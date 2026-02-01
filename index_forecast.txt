@@ -1,9 +1,11 @@
-Index Forecasts – 2026-02-01 10:11 UTC
+Index Forecasts – 2026-02-01 19:50 UTC
 =============================================
 
-DAX  aktueller Wert: 24538.81  |  Δ 0.94%HOLD (Confidence: 0.00,Regime: neutral)
-ATX  aktueller Wert: 5604.9  |  Δ 0.47%HOLD (Confidence: 0.00,Regime: neutral)
-DOW  aktueller Wert: 48892.47  |  Δ -0.36%HOLD (Confidence: 0.00,Regime: neutral)
-NASDAQ  aktueller Wert: 23461.82  |  Δ -0.94%HOLD (Confidence: 0.00,Regime: neutral)
-SP500  aktueller Wert: 6939.03  |  Δ -0.43%HOLD (Confidence: 0.00,Regime: neutral)
-NIKKEI  aktueller Wert: 53322.85  |  Δ -0.1%HOLD (Confidence: 0.00,Regime: neutral)
+Index    | Schlusskurs Vortag | Aktueller Wert | Δ %    | Signal | Conf | Regime
+---------+--------------------+----------------+--------+--------+------+---------
+DAX      |           24309.46 |       24538.81 |   0.94% | HOLD   | 0.00 | neutral
+ATX      |            5578.55 |         5604.9 |   0.47% | HOLD   | 0.00 | neutral
+DOW      |           49071.56 |       48892.47 |  -0.36% | HOLD   | 0.00 | neutral
+NASDAQ   |           23685.12 |       23461.82 |  -0.94% | HOLD   | 0.00 | neutral
+SP500    |            6969.01 |        6939.03 |  -0.43% | HOLD   | 0.00 | neutral
+NIKKEI   |            53375.6 |       53322.85 |   -0.1% | HOLD   | 0.00 | neutral
