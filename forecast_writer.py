@@ -36,7 +36,7 @@ def write_forecasts(forecasts):
     with open(history_file, "w") as f:
         json.dump(history_data, f, indent=2)
 
-    # TXT – immer überschreiben
+    # TXT – immer überschrei
     with open(txt_file, "w") as f:
         f.write(f"Index Forecasts – {timestamp}\n")
         f.write("=" * 45 + "\n\n")
@@ -45,7 +45,8 @@ def write_forecasts(forecasts):
                 f"{item['asset']}  "
                 f"aktueller Wert: {item['close']}  |  "
                 f"{item['signal']} "
-                f"(Confidence: {item['confidence']:.2f}, "
+                f"(Confidence: {item['confidence']:.2f},"
+                f"Δ {item['daily_return']}%"
                 f"Regime: {item['regime']})\n"
             )
 
