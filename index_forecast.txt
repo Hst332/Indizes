@@ -1,4 +1,4 @@
-Index Forecasts – 2026-02-01 19:50 UTC
+Index Forecasts – 2026-02-02 06:06 UTC
 =============================================
 
 Index    | Schlusskurs Vortag | Aktueller Wert | Δ %    | Signal | Conf | Regime
