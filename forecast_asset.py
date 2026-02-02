@@ -3,6 +3,8 @@ from model_core import run_model
 from decision_engine import generate_signal
 from regime_adjustment import adjust_for_regime
 
+def forecast_asset(asset, cfg, df_override=None):
+    df = df_override if df_override is not None else load_market_data(asset, cfg)
 
 def forecast_asset(asset_name, asset_cfg):
     df = load_market_data(asset_cfg["ticker"])
