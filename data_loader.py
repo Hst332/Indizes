@@ -1,6 +1,12 @@
 import yfinance as yf
 import pandas as pd
 
+def load_market_data(symbol, cfg):
+    if not isinstance(cfg, dict):
+        raise TypeError("cfg must be dict")
+
+    period = cfg.get("period", "1y")
+    interval = cfg.get("interval", "1d")
 
 def load_market_data(symbol, period="6mo"):
     """
