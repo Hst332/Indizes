@@ -6,17 +6,22 @@ def summarize_backtest(results):
     }
 
     for r in results:
-        stats[r["signal"]].append(r["future_return"])
+        signal = r["signal"]
+        future_ret = float(r["future_return"])
+        stats[signal].append(future_ret)
 
     summary = {}
+
     for signal, rets in stats.items():
-        if rets:
-            summary[signal] = {
-                "count": len(rets),
-                "avg_return": round(sum(rets) / len(rets), 2),
-                "win_rate": round(
-                    sum(1 for r in rets if r > 0) / len(rets) * 100, 2
-                )
-            }
+        if not rets:
+            continue
+
+        wins = sum(1 for r in rets if r > 0)
+
+        summary[signal] = {
+            "count": len(rets),
+            "avg_return": round(sum(rets) / len(rets), 2),
+            "win_rate": round(wins / len(rets) * 100, 2),
+        }
 
     return summary
