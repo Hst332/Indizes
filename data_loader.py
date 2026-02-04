@@ -2,25 +2,25 @@ import yfinance as yf
 import pandas as pd
 
 def load_market_data(symbol, cfg):
-    if not isinstance(cfg, dict):
-        raise TypeError("cfg must be dict")
+    print(f"Loading market data for {symbol}")
 
     period = cfg.get("period", "1y")
     interval = cfg.get("interval", "1d")
 
-def load_market_data(symbol, period="6mo"):
-    """
-    Lädt Marktdaten über yfinance und gibt sauberes DataFrame zurück
-    """
-    print(f"Loading market data for {symbol}")
-
     df = yf.download(
         symbol,
         period=period,
-        interval="1d",
-        auto_adjust=True,
+        interval=interval,
+        auto_adjust=False,
         progress=False
     )
+
+    if df.empty:
+        raise ValueError(f"No data loaded for {symbol}")
+
+    df = df.rename(columns=str.lower)
+    return df
+
 
     if df.empty:
         raise ValueError(f"No data loaded for {symbol}")
