@@ -13,10 +13,10 @@ def summarize_backtest(results):
     summary = {}
 
     for signal, rets in stats.items():
-        if not rets:
+        if len(rets) == 0:
             continue
 
-        wins = sum(1 for r in rets if r > 0)
+        wins = sum(1 for x in rets if x > 0)
 
         summary[signal] = {
             "count": len(rets),
