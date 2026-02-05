@@ -1,5 +1,5 @@
 import pandas as pd
-from forecast_engine import forecast_asset
+from forecast_asset import forecast_asset
 from data_loader import load_market_data
 
 
