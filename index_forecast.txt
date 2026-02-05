@@ -1,11 +1,11 @@
-Index Forecasts – 2026-02-04 05:54 UTC
+Index Forecasts – 2026-02-05 06:00 UTC
 =============================================
 
 Index    | Schlusskurs Vortag | Aktueller Wert | Δ %    | Signal | Conf | Regime
 ---------+--------------------+----------------+--------+--------+------+---------
-DAX      |           24797.52 |       24780.79 |  -0.07% | HOLD   | 0.00 | neutral
-ATX      |            5658.25 |        5732.93 |   1.32% | HOLD   | 0.00 | neutral
-DOW      |           49407.66 |       49240.99 |  -0.34% | HOLD   | 0.00 | neutral
-NASDAQ   |           23592.11 |       23255.19 |  -1.43% | HOLD   | 0.00 | neutral
-SP500    |            6976.44 |        6917.81 |  -0.84% | HOLD   | 0.00 | neutral
-NIKKEI   |           54720.66 |       54266.28 |  -0.83% | HOLD   | 0.00 | neutral
+DAX      |           24780.79 |       24603.04 |  -0.72% | HOLD   | 0.07 | neutral
+ATX      |            5732.93 |        5748.06 |   0.26% | HOLD   | 0.14 | neutral
+DOW      |           49240.99 |        49501.3 |   0.53% | HOLD   | 0.19 | neutral
+NASDAQ   |           23255.19 |       22904.58 |  -1.51% | SELL   | 0.68 | neutral
+SP500    |            6917.81 |        6882.72 |  -0.51% | SELL   | 0.23 | neutral
+NIKKEI   |           54293.36 |        53824.0 |  -0.86% | HOLD   | 0.00 | neutral
