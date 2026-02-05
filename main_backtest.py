@@ -1,6 +1,7 @@
 from backtest_engine import run_backtest
 from backtest_writer import summarize_backtest, save_backtest_csv
-from config import ASSETS
+from assets_config import ASSETS
+
 
 
 all_results = {}
