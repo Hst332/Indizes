@@ -1,57 +1,33 @@
-import pandas as pd
-from forecast_asset import forecast_asset
 from data_loader import load_market_data
+from forecast_asset import forecast_asset
 
 
-def run_backtest(asset_name, asset_cfg):
+def run_backtest(asset_name, asset_cfg, lookback=120):
 
-    print(f"Running walk-forward backtest for {asset_name}")
+    print(f"Running backtest for {asset_name}")
 
-    # komplette Historie laden
     df = load_market_data(asset_cfg["ticker"], asset_cfg)
-
-    if df is None or len(df) < 50:
-        raise ValueError("Not enough data for backtest")
 
     results = []
 
-    # Walk-forward: jeden Tag Forecast erzeugen
-    for i in range(60, len(df) - 1):   # warmup für Indikatoren / Modell
+    # walk forward
+    for i in range(lookback, len(df) - 1):
 
         sliced_df = df.iloc[:i].copy()
 
-        try:
-            forecast = forecast_asset(
-                asset_name,
-                asset_cfg,
-                df_override=sliced_df
-            )
-        except Exception as e:
-            print(f"Forecast failed at index {i}: {e}")
-            continue
+        forecast = forecast_asset(asset_name, asset_cfg, df_override=sliced_df)
 
-        signal = forecast["signal"]
+        future_close = df["close"].iloc[i + 1]
+        current_close = df["close"].iloc[i]
 
-        today_close = df["close"].iloc[i]
-        next_close = df["close"].iloc[i + 1]
-
-        future_return = (next_close / today_close) - 1
-
-        # Signal Performance berechnen
-        if signal == "LONG":
-            strategy_return = future_return
-        elif signal == "SHORT":
-            strategy_return = -future_return
-        else:
-            strategy_return = 0.0
+        future_return = (future_close / current_close) - 1
 
         results.append({
             "date": df.index[i],
-            "signal": signal,
+            "signal": forecast["signal"],
             "confidence": forecast["confidence"],
             "regime": forecast["regime"],
-            "market_return": future_return,
-            "strategy_return": strategy_return,
+            "future_return": future_return
         })
 
-    return pd.DataFrame(results)
+    return results
