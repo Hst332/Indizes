@@ -1,49 +1,43 @@
 import pandas as pd
+import numpy as np
 
 
-def summarize_backtest(results):
-    """
-    results: Liste von Dicts mit mindestens:
-        - signal
-        - future_return
-    """
+def summarize_backtest(results_df):
 
-    if not results:
-        return {}
+    if len(results_df) == 0:
+        return {"error": "no trades"}
 
-    df = pd.DataFrame(results)
-
-    # Future returns als Series
-    rets = df["future_return"]
+    rets = results_df["strategy_return"].astype(float)
 
     total_trades = len(rets)
-    win_rate = (rets > 0).sum() / total_trades * 100 if total_trades > 0 else 0
+    wins = (rets > 0).sum()
+    losses = (rets < 0).sum()
 
-    avg_return = rets.mean()
-    median_return = rets.median()
-    max_return = rets.max()
-    min_return = rets.min()
+    win_rate = wins / total_trades * 100
 
-    summary = {
+    equity_curve = (1 + rets).cumprod()
+
+    max_drawdown = (
+        (equity_curve / equity_curve.cummax()) - 1
+    ).min()
+
+    sharpe = (
+        rets.mean() / (rets.std() + 1e-9)
+    ) * np.sqrt(252)
+
+    return {
         "total_trades": int(total_trades),
         "win_rate": round(win_rate, 2),
-        "avg_return": round(float(avg_return), 4),
-        "median_return": round(float(median_return), 4),
-        "max_return": round(float(max_return), 4),
-        "min_return": round(float(min_return), 4),
+        "avg_return": round(rets.mean(), 4),
+        "median_return": round(rets.median(), 4),
+        "max_return": round(rets.max(), 4),
+        "min_return": round(rets.min(), 4),
+        "sharpe": round(sharpe, 2),
+        "max_drawdown": round(float(max_drawdown), 4),
     }
 
-    return summary
 
-
-def save_backtest_csv(results, filepath="backtest_results.csv"):
-    """
-    Speichert die einzelnen Trades als CSV.
-    """
-    if not results:
-        print("No backtest results to save.")
-        return
-
-    df = pd.DataFrame(results)
-    df.to_csv(filepath, index=False)
-    print(f"Backtest results saved to {filepath}")
+def save_backtest_csv(results_df, asset_name):
+    filename = f"{asset_name}_backtest.csv"
+    results_df.to_csv(filename, index=False)
+    print(f"Backtest results saved to {filename}")
