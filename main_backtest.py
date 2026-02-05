@@ -1,19 +1,23 @@
-from backtest_runner import run_backtest
-from backtest_writer import summarize_backtest
+from backtest_engine import run_backtest
 from backtest_writer import summarize_backtest, save_backtest_csv
 
 ASSETS = {
-    "^GDAXI": {"ticker": "^GDAXI", "period": "5y", "interval": "1d"},
+    "DAX": {"ticker": "^GDAXI"},
+    # weitere Assets...
 }
-all_results = {}
 
-for asset, cfg in ASSETS.items():
-    print(f"Running backtest for {asset}")
-    results = run_backtest(asset, cfg)
+if __name__ == "__main__":
+    all_results = {}   # <- wichtig!
 
-    save_backtest_csv(results, f"backtest_{asset}.csv")
+    for asset, cfg in ASSETS.items():
+        print(f"Running backtest for {cfg['ticker']}")
 
-    summary = summarize_backtest(results)
-    all_results[asset] = summary
-    print(summary)
+        results = run_backtest(asset, cfg)
 
+        summary = summarize_backtest(results)
+        all_results[asset] = summary
+
+        save_backtest_csv(results, f"{asset}_backtest.csv")
+
+    print("Backtest summaries:")
+    print(all_results)
