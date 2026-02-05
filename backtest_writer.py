@@ -2,44 +2,48 @@ import pandas as pd
 
 
 def summarize_backtest(results):
-    stats = {
-        "BUY": [],
-        "SELL": [],
-        "HOLD": []
+    """
+    results: Liste von Dicts mit mindestens:
+        - signal
+        - future_return
+    """
+
+    if not results:
+        return {}
+
+    df = pd.DataFrame(results)
+
+    # Future returns als Series
+    rets = df["future_return"]
+
+    total_trades = len(rets)
+    win_rate = (rets > 0).sum() / total_trades * 100 if total_trades > 0 else 0
+
+    avg_return = rets.mean()
+    median_return = rets.median()
+    max_return = rets.max()
+    min_return = rets.min()
+
+    summary = {
+        "total_trades": int(total_trades),
+        "win_rate": round(win_rate, 2),
+        "avg_return": round(float(avg_return), 4),
+        "median_return": round(float(median_return), 4),
+        "max_return": round(float(max_return), 4),
+        "min_return": round(float(min_return), 4),
     }
 
-    for r in results:
-        signal = r["signal"]
-        future_ret = float(r["future_return"])
-        stats[signal].append(future_ret)
-
-    summary = {}
-
-    for signal, rets in stats.items():
-        if len(rets) == 0:
-            continue
-
-        wins = sum(1 for x in rets if x > 0)
-
-        summary[signal] = {
-            "count": len(rets),
-            "avg_return": round(sum(rets) / len(rets), 2),
-            "win_rate": round(wins / len(rets) * 100, 2),
-        }
-    def save_backtest_csv(results, filename="backtest_results.csv"):
-        rows = []
-        for r in results:
-            rows.append({
-                "date": r["date"],
-                "signal": r["signal"],
-                "future_return": float(r["future_return"]),
-                "regime": r["regime"],
-                "confidence": r["confidence"],
-            })
-    
-        df = pd.DataFrame(rows)
-        df.to_csv(filename, index=False)
-
-
-
     return summary
+
+
+def save_backtest_csv(results, filepath="backtest_results.csv"):
+    """
+    Speichert die einzelnen Trades als CSV.
+    """
+    if not results:
+        print("No backtest results to save.")
+        return
+
+    df = pd.DataFrame(results)
+    df.to_csv(filepath, index=False)
+    print(f"Backtest results saved to {filepath}")
