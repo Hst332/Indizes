@@ -30,10 +30,16 @@ def summarize_backtest(results):
 
 
 def save_backtest_csv(results, asset_name):
+    import pandas as pd
 
     df = pd.DataFrame(results)
 
-    df["future_return"] = pd.to_numeric(df["future_return"], errors="coerce")
+    if df.empty:
+        df = pd.DataFrame(
+            columns=["date", "signal", "price", "future_return"]
+        )
 
     filename = f"backtest_{asset_name}.csv"
     df.to_csv(filename, index=False)
+
+    print(f"Saved {filename} ({len(df)} rows)")
