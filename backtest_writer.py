@@ -5,12 +5,21 @@ def summarize_backtest(results):
 
     df = pd.DataFrame(results)
 
-    rets = df["future_return"]
+    # Sicherheitskonvertierung
+    df["future_return"] = pd.to_numeric(df["future_return"], errors="coerce")
+
+    rets = df["future_return"].dropna()
 
     total_trades = len(rets)
 
-    winrate = round((rets > 0).sum() / total_trades * 100, 2)
+    if total_trades == 0:
+        return {
+            "trades": 0,
+            "winrate": 0,
+            "avg_return": 0
+        }
 
+    winrate = round((rets.gt(0).sum() / total_trades) * 100, 2)
     avg_return = round(rets.mean() * 100, 2)
 
     return {
@@ -23,5 +32,8 @@ def summarize_backtest(results):
 def save_backtest_csv(results, asset_name):
 
     df = pd.DataFrame(results)
+
+    df["future_return"] = pd.to_numeric(df["future_return"], errors="coerce")
+
     filename = f"backtest_{asset_name}.csv"
     df.to_csv(filename, index=False)
