@@ -1,20 +1,26 @@
-from backtest_engine import run_backtest
-from backtest_writer import summarize_backtest, save_backtest_csv
+ASSETS = {
 
+    "DAX": {
+        "ticker": "^GDAXI"
+    },
 
+    "ATX": {
+        "ticker": "^ATX"
+    },
 
-if __name__ == "__main__":
+    "DOW": {
+        "ticker": "^DJI"
+    },
 
-    all_results = {}
+    "NASDAQ": {
+        "ticker": "^IXIC"
+    },
 
-    for asset, cfg in ASSETS.items():
+    "SP500": {
+        "ticker": "^GSPC"
+    },
 
-        results = run_backtest(asset, cfg)
-
-        summary = summarize_backtest(results)
-
-        save_backtest_csv(results, asset)
-
-        all_results[asset] = summary
-
-        print(asset, summary)
+    "NIKKEI": {
+        "ticker": "^N225"
+    }
+}
