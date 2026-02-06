@@ -1,6 +1,24 @@
 from data_loader import load_market_data
 from forecast_asset import forecast_asset
 
+BACKTEST_MODE = True
+
+def make_decision(signal_strength, confidence):
+
+    if BACKTEST_MODE:
+        if signal_strength > 0:
+            return "LONG"
+        elif signal_strength < 0:
+            return "SHORT"
+        else:
+            return None
+
+    # Live-Logik (unverändert lassen!)
+    if confidence > 0.6 and abs(signal_strength) > 0.5:
+        return "LONG" if signal_strength > 0 else "SHORT"
+
+    return None
+
 
 def run_backtest(asset_name, asset_cfg, lookback=120):
 
