@@ -1,20 +1,18 @@
-from backtest_engine import run_backtest
+from backtest_runner import run_backtest
 from backtest_writer import summarize_backtest, save_backtest_csv
-from asset_config import ASSETS   # ← DAS ist der richtige Import!
+from asset_config import ASSETS
 
+all_results = {}   # <---- FEHLTE
 
-if __name__ == "__main__":
+for asset, cfg in ASSETS.items():
+    print(f"Running backtest for {cfg['ticker']}")
 
-    all_results = {}
+    results = run_backtest(asset, cfg)
 
-    for asset, cfg in ASSETS.items():
+    # CSV VOR dem Summary erzeugen
+    save_backtest_csv(results, filename=f"backtest_{asset}.csv")
 
-        results = run_backtest(asset, cfg)
+    summary = summarize_backtest(results)
+    all_results[asset] = summary
 
-        summary = summarize_backtest(results)
-
-        save_backtest_csv(results, asset)
-
-        all_results[asset] = summary
-
-        print(asset, summary)
+print(all_results)
