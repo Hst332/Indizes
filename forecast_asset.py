@@ -3,8 +3,18 @@ from model_core import run_model
 from decision_engine import generate_signal
 from regime_adjustment import adjust_for_regime
 
-def forecast_asset(asset_name, asset_cfg):
-    df = load_market_data(asset_cfg["ticker"])
+
+def forecast_asset(asset_name, asset_cfg, df_override=None):
+    """
+    df_override wird vom Backtest übergeben.
+    Live-System lädt Daten normal.
+    """
+
+    # Backtest → vorhandenes Slice nutzen
+    if df_override is not None:
+        df = df_override
+    else:
+        df = load_market_data(asset_cfg["ticker"])
 
     model_output = run_model(df)
     regime = adjust_for_regime(df)
