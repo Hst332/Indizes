@@ -1,45 +1,25 @@
 import pandas as pd
 
-
 def summarize_backtest(results):
+    rets = []
 
-    df = pd.DataFrame(results)
+    for r in results:
+        val = r["future_return"]
+        if isinstance(val, pd.Series):
+            val = float(val.iloc[0])
+        else:
+            val = float(val)
 
-    # Sicherheitskonvertierung
-    df["future_return"] = pd.to_numeric(df["future_return"], errors="coerce")
+        rets.append(val)
 
-    rets = df["future_return"].dropna()
+    if len(rets) == 0:
+        return {}
 
-    total_trades = len(rets)
-
-    if total_trades == 0:
-        return {
-            "trades": 0,
-            "winrate": 0,
-            "avg_return": 0
-        }
-
-    winrate = round((rets.gt(0).sum() / total_trades) * 100, 2)
-    avg_return = round(rets.mean() * 100, 2)
-
-    return {
-        "trades": total_trades,
-        "winrate": winrate,
-        "avg_return": avg_return
+    summary = {
+        "trades": len(rets),
+        "win_rate": round(sum(1 for r in rets if r > 0) / len(rets) * 100, 2),
+        "avg_return": round(sum(rets) / len(rets), 4),
+        "total_return": round(sum(rets), 4),
     }
 
-
-def save_backtest_csv(results, asset_name):
-    import pandas as pd
-
-    df = pd.DataFrame(results)
-
-    if df.empty:
-        df = pd.DataFrame(
-            columns=["date", "signal", "price", "future_return"]
-        )
-
-    filename = f"backtest_{asset_name}.csv"
-    df.to_csv(filename, index=False)
-
-    print(f"Saved {filename} ({len(df)} rows)")
+    return summary
