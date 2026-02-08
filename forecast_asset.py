@@ -20,8 +20,9 @@ def forecast_asset(asset_name, asset_cfg, df_override=None):
     regime = adjust_for_regime(df)
     decision = generate_signal(model_output, regime)
 
-    latest_close = float(df["close"].iloc[-1])
-    prev_close = float(df["close"].iloc[-2])
+    latest_close = df["close"].iloc[-1].item()
+    prev_close = df["close"].iloc[-2].item()
+
 
     daily_return = (latest_close / prev_close) - 1
 
