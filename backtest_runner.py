@@ -17,5 +17,15 @@ def run_backtest(asset, cfg, lookback=252):
         ) * 100
 
         results.append(forecast)
+from backtest_writer import save_backtest_csv
+
+def run_backtest(asset_name, asset_cfg):
+    results = backtest_engine(asset_name, asset_cfg)
+
+    # CSV direkt nach Berechnung der Trades speichern
+    save_backtest_csv(results, filename=f"raw_backtest_{asset_name}.csv")
+
+    return results
+
 
     return results
