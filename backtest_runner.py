@@ -1,5 +1,6 @@
 from data_loader import load_market_data
 from forecast_asset import forecast_asset
+from backtest_engine import run_backtest as backtest_engine
 
 def run_backtest(asset, cfg, lookback=252):
     df = load_market_data(asset, cfg)
